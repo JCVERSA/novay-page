@@ -1,0 +1,10 @@
+node_modules/
+build/
+dist/
+coverage/
+.aistudio/
+.tmp-import/
+.DS_Store
+*.log
+.env*
+!.env.example

@@ -1,0 +1,8 @@
+{
+  "name": "NoVaY — Tes animés, à ton rythme",
+  "description": "Télécharge NoVaY pour Android : animés VF et VOSTFR, bibliothèque et lecture hors ligne. APK universel gratuit, compatible Android 7 et plus.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
