@@ -14,13 +14,12 @@
       content="Télécharge NoVaY pour Android : animés VF et VOSTFR, bibliothèque et lecture hors ligne. APK universel gratuit, compatible Android 7 et plus."
     />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/aistudio/novay-monogram-64px-crimson_96093ed0.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#f8f7f2" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23252623'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23edce56' stroke-width='2'/%3E%3Cpath d='M13.5 11.8l7.2 4.2-7.2 4.2z' fill='%23edce56'/%3E%3C/svg%3E"
-    />
+    <link rel="icon" type="image/svg+xml" href="/assets/aistudio/novay-monogram-64px-crimson_efcc5ecd.svg" />
+    <link rel="icon" type="image/png" href="/assets/aistudio/novay-monogram-64px-crimson_96093ed0.png" />
+    <link rel="apple-touch-icon" href="/assets/aistudio/novay-monogram-64px-crimson_96093ed0.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -38,8 +37,9 @@
               window.matchMedia('(prefers-color-scheme: dark)').matches);
           document.documentElement.dataset.theme = dark ? 'dark' : 'light';
           var reduced =
-            window.matchMedia &&
-            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            (window.matchMedia &&
+              window.matchMedia('(prefers-reduced-motion: reduce)').matches) ||
+            window.location.search.indexOf('autostart=1') !== -1;
           document.documentElement.dataset.loader = reduced ? 'done' : 'counting';
         } catch (e) {
           document.documentElement.dataset.theme = 'light';
@@ -67,10 +67,9 @@
 
       <div class="loader-stage">
         <div class="loader-brand" aria-hidden="true">
-          <svg class="brand-mark" viewBox="0 0 32 32" fill="none">
-            <rect class="brand-mark-bg" x="0.5" y="0.5" width="31" height="31" rx="7.5" stroke-width="1" />
-            <circle cx="16" cy="16" r="8.5" stroke="#edce56" stroke-width="2" />
-            <path d="M13.5 11.8L20.7 16L13.5 20.2V11.8Z" fill="#edce56" />
+          <svg class="brand-mark" viewBox="0 0 256 256" fill="none">
+            <path class="brand-mark-tile" d="M 72 20 H 184 A 52 52 0 0 1 236 72 V 184 A 52 52 0 0 1 184 236 H 72 A 52 52 0 0 1 20 184 V 72 A 52 52 0 0 1 72 20 Z" />
+            <path class="brand-mark-n" d="M 66 64 H 92 V 176 L 66 191 Z M 104 64 H 126 L 154 128 V 192 H 132 L 104 128 Z M 164 79 L 190 64 V 192 H 164 Z" />
           </svg>
           <span>NoVaY<span class="brand-dot">.</span></span>
         </div>
@@ -117,10 +116,9 @@
     <header class="site-header" id="site-header">
       <div class="nav-bar wrap">
         <a class="brand" href="#top" aria-label="NoVaY — Accueil">
-          <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-            <rect class="brand-mark-bg" x="0.5" y="0.5" width="31" height="31" rx="7.5" stroke-width="1" />
-            <circle cx="16" cy="16" r="8.5" stroke="#edce56" stroke-width="2" />
-            <path d="M13.5 11.8L20.7 16L13.5 20.2V11.8Z" fill="#edce56" />
+          <svg class="brand-mark" viewBox="0 0 256 256" fill="none" aria-hidden="true">
+            <path class="brand-mark-tile" d="M 72 20 H 184 A 52 52 0 0 1 236 72 V 184 A 52 52 0 0 1 184 236 H 72 A 52 52 0 0 1 20 184 V 72 A 52 52 0 0 1 72 20 Z" />
+            <path class="brand-mark-n" d="M 66 64 H 92 V 176 L 66 191 Z M 104 64 H 126 L 154 128 V 192 H 132 L 104 128 Z M 164 79 L 190 64 V 192 H 164 Z" />
           </svg>
           <span>NoVaY<span class="brand-dot">.</span></span>
         </a>
@@ -283,174 +281,250 @@
 
           <div class="phone-stage">
             <div class="phone-depth-glow" aria-hidden="true"></div>
-            <div class="phone" id="interactive-phone" role="region" aria-label="Aperçu interactif de l'application NoVaY">
+            <div class="phone" id="interactive-phone" data-accent="noir_crimson" role="region" aria-label="Aperçu interactif de l'application NoVaY">
               <div class="phone-glare" aria-hidden="true"></div>
               <div class="camera" aria-hidden="true"></div>
               <div class="phone-status" aria-hidden="true">
-                <span>9:41</span>
-                <span>5G · 94%</span>
+                <span id="phone-status-time">--:--</span>
+                <span id="phone-status-device">Connexion…</span>
               </div>
 
-              <div class="phone-header">
-                <span class="phone-brand">NoVaY<span class="brand-dot">.</span></span>
-                <button
-                  type="button"
-                  class="phone-search-btn"
-                  data-jump-tab="catalog"
-                  aria-label="Explorer le catalogue dans l'aperçu"
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="m21 21-4.34-4.34" />
-                    <circle cx="11" cy="11" r="8" />
-                  </svg>
-                </button>
-              </div>
-              <div class="phone-sub" id="phone-subtitle">Ton prochain épisode t’attend.</div>
+              <!-- Push Overlay: Show Detail (Fiche Animé) -->
+              <div class="phone-show-overlay" id="phone-show-overlay" hidden></div>
 
-              <!-- Screen 1: Library -->
+              <!-- Floating Toast Host -->
+              <div class="phone-toast-host" id="phone-toast-host" aria-live="polite"></div>
+
+              <!-- Screen 1: Library (Bibliothèque) -->
               <div class="phone-screen" data-phone-screen="library">
-                <div class="phone-art">
-                  <svg class="sun" viewBox="0 0 200 200" aria-hidden="true">
-                    <path
-                      class="sun-path"
-                      d="M 190.00 100.00 C 190.00 107.85 165.24 111.52 163.75 117.08 C 162.26 122.65 181.87 138.20 177.94 145.00 C 174.02 151.80 150.74 142.60 146.67 146.67 C 142.60 150.74 151.80 174.02 145.00 177.94 C 138.20 181.87 122.65 162.26 117.08 163.75 C 111.52 165.24 107.85 190.00 100.00 190.00 C 92.15 190.00 88.48 165.24 82.92 163.75 C 77.35 162.26 61.80 181.87 55.00 177.94 C 48.20 174.02 57.40 150.74 53.33 146.67 C 49.26 142.60 25.98 151.80 22.06 145.00 C 18.13 138.20 37.74 122.65 36.25 117.08 C 34.76 111.52 10.00 107.85 10.00 100.00 C 10.00 92.15 34.76 88.48 36.25 82.92 C 37.74 77.35 18.13 61.80 22.06 55.00 C 25.98 48.20 49.26 57.40 53.33 53.33 C 57.40 49.26 48.20 25.98 55.00 22.06 C 61.80 18.13 77.35 37.74 82.92 36.25 C 88.48 34.76 92.15 10.00 100.00 10.00 C 107.85 10.00 111.52 34.76 117.08 36.25 C 122.65 37.74 138.20 18.13 145.00 22.06 C 151.80 25.98 142.60 49.26 146.67 53.33 C 150.74 57.40 174.02 48.20 177.94 55.00 C 181.87 61.80 162.26 77.35 163.75 82.92 C 165.24 88.48 190.00 92.15 190.00 100.00 Z"
-                    />
-                  </svg>
-                  <div class="mountain one" aria-hidden="true"></div>
-                  <div class="mountain two" aria-hidden="true"></div>
-                  <span class="art-label">À LA UNE</span>
-                  <div class="art-title">
-                    Une nouvelle<br />aventure commence.
-                  </div>
-                  <button type="button" class="play-btn" data-jump-tab="catalog">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M5 4l15 8-15 8V4z" />
+                <div class="novay-appbar">
+                  <div class="novay-appbar-title-wrap">
+                    <svg class="novay-brand-seal" viewBox="0 0 256 256" fill="none" aria-hidden="true">
+                      <path class="brand-mark-tile" d="M 72 20 H 184 A 52 52 0 0 1 236 72 V 184 A 52 52 0 0 1 184 236 H 72 A 52 52 0 0 1 20 184 V 72 A 52 52 0 0 1 72 20 Z" />
+                      <path class="brand-mark-n" d="M 66 64 H 92 V 176 L 66 191 Z M 104 64 H 126 L 154 128 V 192 H 132 L 104 128 Z M 164 79 L 190 64 V 192 H 164 Z" />
                     </svg>
-                    Explorer le catalogue
-                  </button>
-                </div>
-
-                <div class="phone-section-row">
-                  <span>Ta bibliothèque</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-                  </svg>
-                </div>
-
-                <div class="mini-grid">
-                  <button type="button" class="mini-tile" data-genre-tile="aventure" aria-pressed="false">
-                    <div class="mini-art a0">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                      </svg>
-                    </div>
-                    <span>Aventure</span>
-                  </button>
-                  <button type="button" class="mini-tile" data-genre-tile="fantastique" aria-pressed="false">
-                    <div class="mini-art a1">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-                      </svg>
-                    </div>
-                    <span>Fantastique</span>
-                  </button>
-                  <button type="button" class="mini-tile" data-genre-tile="decouverte" aria-pressed="false">
-                    <div class="mini-art a2">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <circle cx="12" cy="12" r="10" />
-                        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-                      </svg>
-                    </div>
-                    <span>Découverte</span>
-                  </button>
-                </div>
-
-                <button type="button" class="offline-banner" data-jump-tab="offline">
-                  <div class="offline-icon">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M12 15V3" />
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <path d="m7 10 5 5 5-5" />
-                    </svg>
+                    <span class="novay-appbar-title">Bibliothèque</span>
+                    <span class="novay-count-pill" id="library-count-pill">3</span>
                   </div>
-                  <div>
-                    <strong>Prêt pour le hors-ligne</strong>
-                    <small id="library-offline-count">2 épisodes prêts hors ligne</small>
+                  <div class="novay-appbar-actions">
+                    <button type="button" class="novay-icon-btn" data-jump-tab="browse" aria-label="Rechercher dans le catalogue">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="m21 21-4.34-4.34" />
+                        <circle cx="11" cy="11" r="8" />
+                      </svg>
+                    </button>
+                    <button type="button" class="novay-icon-btn" id="library-display-btn" aria-label="Affichage et tri">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="21" x2="14" y1="4" y2="4" />
+                        <line x1="10" x2="3" y1="4" y2="4" />
+                        <line x1="21" x2="12" y1="12" y2="12" />
+                        <line x1="8" x2="3" y1="12" y2="12" />
+                        <line x1="21" x2="16" y1="20" y2="20" />
+                        <line x1="12" x2="3" y1="20" y2="20" />
+                        <line x1="14" x2="14" y1="2" y2="6" />
+                        <line x1="8" x2="8" y1="10" y2="14" />
+                        <line x1="16" x2="16" y1="18" y2="22" />
+                      </svg>
+                    </button>
                   </div>
-                  <svg class="offline-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M20 6 9 17l-5-5" />
-                  </svg>
-                </button>
-              </div>
-
-              <!-- Screen 2: Catalog -->
-              <div class="phone-screen" data-phone-screen="catalog" hidden>
-                <div class="phone-filter-row" role="group" aria-label="Filtrer par langue">
-                  <button type="button" class="phone-filter-btn" data-lang-filter="all" aria-pressed="true">Tous</button>
-                  <button type="button" class="phone-filter-btn" data-lang-filter="VF" aria-pressed="false">VF</button>
-                  <button type="button" class="phone-filter-btn" data-lang-filter="VOSTFR" aria-pressed="false">VOSTFR</button>
                 </div>
-                <div class="phone-list" id="phone-catalog-list"></div>
-              </div>
 
-              <!-- Screen 3: Offline -->
-              <div class="phone-screen" data-phone-screen="offline" hidden>
-                <div class="phone-offline-summary">
-                  <span>Stockage hors ligne</span>
-                  <strong id="phone-offline-total">2/4 prêts</strong>
+                <div class="novay-chip-row" role="group" aria-label="Filtrer la bibliothèque">
+                  <button type="button" class="novay-chip" data-lib-filter="all" aria-pressed="true">Tous</button>
+                  <button type="button" class="novay-chip" data-lib-filter="VF" aria-pressed="false">VF</button>
+                  <button type="button" class="novay-chip" data-lib-filter="VOSTFR" aria-pressed="false">VOSTFR</button>
+                  <button type="button" class="novay-chip" data-lib-filter="offline" aria-pressed="false">Hors-ligne</button>
                 </div>
-                <div class="phone-list" id="phone-offline-list"></div>
+
+                <div class="phone-scroll-body" id="phone-library-body"></div>
               </div>
 
-              <div class="phone-nav" role="tablist" aria-label="Navigation de l'aperçu">
+              <!-- Screen 2: Updates (Nouveautés) -->
+              <div class="phone-screen" data-phone-screen="updates" hidden>
+                <div class="novay-appbar">
+                  <div class="novay-appbar-title-wrap">
+                    <span class="novay-appbar-title">Nouveautés</span>
+                    <span class="novay-count-pill is-amber" id="updates-count-pill">3</span>
+                  </div>
+                  <div class="novay-appbar-actions">
+                    <button type="button" class="novay-icon-btn" id="updates-refresh-btn" aria-label="Vérifier les nouveaux épisodes">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                        <path d="M3 3v5h5" />
+                        <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                        <path d="M16 16h5v5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="phone-scroll-body" id="phone-updates-list"></div>
+              </div>
+
+              <!-- Screen 3: History (Historique) -->
+              <div class="phone-screen" data-phone-screen="history" hidden>
+                <div class="novay-appbar">
+                  <div class="novay-appbar-title-wrap">
+                    <span class="novay-appbar-title">Historique</span>
+                    <span class="novay-count-pill" id="history-count-pill">3</span>
+                  </div>
+                  <div class="novay-appbar-actions">
+                    <button type="button" class="novay-icon-btn" id="history-clear-btn" aria-label="Effacer l'historique">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18" />
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="phone-scroll-body" id="phone-history-list"></div>
+              </div>
+
+              <!-- Aniyomi Icon-Only Frosted-Glass Bottom Dock (5 morphing tabs) -->
+              <div class="phone-nav aniyomi-dock" role="tablist" aria-label="Navigation de l'application NoVaY" style="--dock-index: 0;">
+                <span class="dock-capsule" aria-hidden="true"></span>
+
                 <button
                   type="button"
                   class="phone-nav-btn"
                   role="tab"
                   data-phone-tab="library"
+                  aria-label="Bibliothèque"
                   aria-selected="true"
                 >
-                  <span class="phone-nav-pill" aria-hidden="true">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 7v14" />
-                      <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
+                  <span class="morph-icon morph-library" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <rect class="morph-book b1" x="3.4" y="4.2" width="4.4" height="15.8" rx="1.6" />
+                      <rect class="morph-book b2" x="9.4" y="4.2" width="4.4" height="15.8" rx="1.6" />
+                      <rect class="morph-book b3" x="15.4" y="4.8" width="4.4" height="15.2" rx="1.6" />
                     </svg>
                   </span>
-                  <span>Bibliothèque</span>
                 </button>
+
                 <button
                   type="button"
                   class="phone-nav-btn"
                   role="tab"
-                  data-phone-tab="catalog"
+                  data-phone-tab="updates"
+                  aria-label="Nouveautés"
                   aria-selected="false"
                 >
-                  <span class="phone-nav-pill" aria-hidden="true">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="m21 21-4.34-4.34" />
-                      <circle cx="11" cy="11" r="8" />
+                  <span class="morph-icon morph-updates" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <g class="morph-star-burst">
+                        <path
+                          class="morph-star-path"
+                          d="M12 2.8 L14.6 5.7 L18.5 5.5 L18.3 9.4 L21.2 12 L18.3 14.6 L18.5 18.5 L14.6 18.3 L12 21.2 L9.4 18.3 L5.5 18.5 L5.7 14.6 L2.8 12 L5.7 9.4 L5.5 5.5 L9.4 5.7 Z"
+                        />
+                      </g>
+                      <line class="morph-star-core" x1="12" y1="8.6" x2="12" y2="12.7" stroke-linecap="round" />
+                      <circle class="morph-star-core-dot" cx="12" cy="15.5" r="1.15" />
                     </svg>
+                    <span class="dock-badge" id="dock-updates-badge">3</span>
                   </span>
-                  <span>Catalogue</span>
                 </button>
+
                 <button
                   type="button"
                   class="phone-nav-btn"
                   role="tab"
-                  data-phone-tab="offline"
+                  data-phone-tab="history"
+                  aria-label="Historique"
                   aria-selected="false"
                 >
-                  <span class="phone-nav-pill" aria-hidden="true">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 15V3" />
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <path d="m7 10 5 5 5-5" />
+                  <span class="morph-icon morph-history" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <circle class="morph-history-fill" cx="12" cy="12" r="8.6" />
+                      <path class="morph-history-arc" d="M 4.8 7.5 A 8.6 8.6 0 1 1 6.3 18.4" stroke-linecap="round" />
+                      <path class="morph-history-arrow" d="M 4.6 7.6 L 7.6 5.9 M 4.6 7.6 L 5.1 11.1" stroke-linecap="round" stroke-linejoin="round" />
+                      <line class="morph-history-hour" x1="12" y1="12" x2="15.2" y2="14" stroke-linecap="round" />
+                      <line class="morph-history-hand" x1="12" y1="12" x2="12" y2="7.2" stroke-linecap="round" />
                     </svg>
                   </span>
-                  <span>Hors-ligne</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="phone-nav-btn"
+                  role="tab"
+                  data-phone-tab="browse"
+                  aria-label="Explorer"
+                  aria-selected="false"
+                >
+                  <span class="morph-icon morph-browse" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <circle class="morph-browse-ring" cx="12" cy="12" r="8.8" />
+                      <polygon class="morph-browse-needle" points="12,6.5 14.3,12 12,17.5 9.7,12" />
+                    </svg>
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  class="phone-nav-btn"
+                  role="tab"
+                  data-phone-tab="more"
+                  aria-label="Plus"
+                  aria-selected="false"
+                >
+                  <span class="morph-icon morph-more" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <rect class="morph-dot d0" x="3.7" y="9.8" width="4.4" height="4.4" rx="2.2" />
+                      <rect class="morph-dot d1" x="9.8" y="9.8" width="4.4" height="4.4" rx="2.2" />
+                      <rect class="morph-dot d2" x="15.9" y="9.8" width="4.4" height="4.4" rx="2.2" />
+                    </svg>
+                  </span>
                 </button>
               </div>
 
+              <!-- Screen 4: Browse (Explorer) -->
+              <div class="phone-screen" data-phone-screen="browse" hidden>
+                <div class="novay-appbar">
+                  <div class="novay-appbar-title-wrap">
+                    <svg class="novay-brand-seal" viewBox="0 0 256 256" fill="none" aria-hidden="true">
+                      <path class="brand-mark-tile" d="M 72 20 H 184 A 52 52 0 0 1 236 72 V 184 A 52 52 0 0 1 184 236 H 72 A 52 52 0 0 1 20 184 V 72 A 52 52 0 0 1 72 20 Z" />
+                      <path class="brand-mark-n" d="M 66 64 H 92 V 176 L 66 191 Z M 104 64 H 126 L 154 128 V 192 H 132 L 104 128 Z M 164 79 L 190 64 V 192 H 164 Z" />
+                    </svg>
+                    <span class="novay-appbar-title">Explorer</span>
+                  </div>
+                </div>
+
+                <div class="novay-search-wrap">
+                  <svg class="novay-search-ico" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m21 21-4.34-4.34" />
+                    <circle cx="11" cy="11" r="8" />
+                  </svg>
+                  <input
+                    type="search"
+                    class="novay-search-input"
+                    id="phone-browse-search"
+                    placeholder="Rechercher un animé..."
+                    aria-label="Rechercher un animé dans le catalogue"
+                  />
+                </div>
+
+                <div class="novay-chip-row" role="group" aria-label="Filtrer par langue ou genre">
+                  <button type="button" class="novay-chip" data-lang-filter="all" aria-pressed="true">Tous</button>
+                  <button type="button" class="novay-chip" data-lang-filter="VF" aria-pressed="false">VF</button>
+                  <button type="button" class="novay-chip" data-lang-filter="VOSTFR" aria-pressed="false">VOSTFR</button>
+                  <button type="button" class="novay-chip" data-genre-chip="aventure" aria-pressed="false">Aventure</button>
+                  <button type="button" class="novay-chip" data-genre-chip="fantastique" aria-pressed="false">Fantastique</button>
+                </div>
+
+                <div class="phone-scroll-body" id="phone-browse-body"></div>
+              </div>
+
+              <!-- Screen 5: More (Plus) -->
+              <div class="phone-screen" data-phone-screen="more" hidden>
+                <div class="novay-appbar">
+                  <div class="novay-appbar-title-wrap">
+                    <span class="novay-appbar-title">Plus</span>
+                  </div>
+                </div>
+                <div class="phone-scroll-body" id="phone-more-body"></div>
+              </div>
+
+              <!-- Library Display & Sort ModalBottomSheet -->
               <div class="phone-sheet-backdrop" id="phone-sheet-backdrop" hidden></div>
               <div
                 class="phone-sheet"
@@ -463,29 +537,22 @@
                 <div class="phone-sheet-handle" aria-hidden="true"></div>
                 <div class="phone-sheet-head">
                   <div>
-                    <span class="phone-sheet-kicker">COLLECTION</span>
-                    <h3 class="phone-sheet-title" id="phone-sheet-title">Fantastique</h3>
+                    <span class="phone-sheet-kicker">AFFICHAGE &amp; TRI</span>
+                    <h3 class="phone-sheet-title" id="phone-sheet-title">Bibliothèque</h3>
                   </div>
                   <button
                     type="button"
                     class="phone-sheet-close"
                     id="phone-sheet-close"
-                    aria-label="Fermer l’aperçu de la collection"
+                    aria-label="Fermer les options d'affichage"
                   >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                       <path d="M18 6 6 18" />
                       <path d="m6 6 12 12" />
                     </svg>
                   </button>
                 </div>
-                <div class="phone-sheet-list" id="phone-sheet-list"></div>
-                <button type="button" class="phone-sheet-cta" id="phone-sheet-catalog-btn">
-                  Tout voir dans le catalogue
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M5 12h14" />
-                    <path d="m12 5 7 7-7 7" />
-                  </svg>
-                </button>
+                <div id="phone-display-sheet-body"></div>
               </div>
             </div>
           </div>
@@ -547,8 +614,12 @@
                     d="M 188.00 100.00 C 188.00 109.31 175.27 121.10 167.44 127.94 C 159.61 134.77 147.60 134.43 141.01 141.01 C 134.43 147.60 134.77 159.61 127.94 167.44 C 121.10 175.27 109.31 188.00 100.00 188.00 C 90.69 188.00 78.90 175.27 72.06 167.44 C 65.23 159.61 65.57 147.60 58.99 141.01 C 52.40 134.43 40.39 134.77 32.56 127.94 C 24.73 121.10 12.00 109.31 12.00 100.00 C 12.00 90.69 24.73 78.90 32.56 72.06 C 40.39 65.23 52.40 65.57 58.99 58.99 C 65.57 52.40 65.23 40.39 72.06 32.56 C 78.90 24.73 90.69 12.00 100.00 12.00 C 109.31 12.00 121.10 24.73 127.94 32.56 C 134.77 40.39 134.43 52.40 141.01 58.99 C 147.60 65.57 159.61 65.23 167.44 72.06 C 175.27 78.90 188.00 90.69 188.00 100.00 Z"
                   />
                 </svg>
-                <svg class="illustration-icon" width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path pathLength="1" d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" />
+                <svg class="illustration-icon" width="92" height="92" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path data-morph-stroke="0" pathLength="1" fill="currentColor" fill-opacity="0.09" d="M11 18 L16 13 L34 13 L39 18 L39 30 L34 35 L21 35 L15 41 L15 35 L11 31 Z" />
+                  <path data-morph-stroke="1" pathLength="1" d="M18 25 L21 21 L24 28 L28 19 L31 26 L33 23" />
+                  <path data-morph-stroke="2" pathLength="1" d="M26 35 A5 5 0 0 1 31 30 L48 30 A5 5 0 0 1 53 35 L53 45 A5 5 0 0 1 48 50 L31 50 A5 5 0 0 1 26 45 Z" />
+                  <path data-morph-stroke="3" pathLength="1" d="M32 37 L47 37" />
+                  <path data-morph-stroke="4" pathLength="1" d="M32 43 L42 43" />
                 </svg>
                 <svg class="small-spark" width="32" height="32" viewBox="0 0 48 48" fill="none" aria-hidden="true">
                   <path d="M24 4v40M4 24h40M10 10l28 28M38 10L10 38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
@@ -584,14 +655,12 @@
                     d="M 188.00 100.00 C 188.00 109.31 175.27 121.10 167.44 127.94 C 159.61 134.77 147.60 134.43 141.01 141.01 C 134.43 147.60 134.77 159.61 127.94 167.44 C 121.10 175.27 109.31 188.00 100.00 188.00 C 90.69 188.00 78.90 175.27 72.06 167.44 C 65.23 159.61 65.57 147.60 58.99 141.01 C 52.40 134.43 40.39 134.77 32.56 127.94 C 24.73 121.10 12.00 109.31 12.00 100.00 C 12.00 90.69 24.73 78.90 32.56 72.06 C 40.39 65.23 52.40 65.57 58.99 58.99 C 65.57 52.40 65.23 40.39 72.06 32.56 C 78.90 24.73 90.69 12.00 100.00 12.00 C 109.31 12.00 121.10 24.73 127.94 32.56 C 134.77 40.39 134.43 52.40 141.01 58.99 C 147.60 65.57 159.61 65.23 167.44 72.06 C 175.27 78.90 188.00 90.69 188.00 100.00 Z"
                   />
                 </svg>
-                <svg class="illustration-icon" width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path pathLength="1" d="M12 20h.01" />
-                  <path pathLength="1" d="M8.5 16.429a5 5 0 0 1 7 0" />
-                  <path pathLength="1" d="M5 12.859a10 10 0 0 1 5.17-2.69" />
-                  <path pathLength="1" d="M19 12.859a10 10 0 0 0-2.007-1.523" />
-                  <path pathLength="1" d="M2 8.82a15 15 0 0 1 4.177-2.643" />
-                  <path pathLength="1" d="M22 8.82a15 15 0 0 0-11.288-3.764" />
-                  <path pathLength="1" d="m2 2 20 20" />
+                <svg class="illustration-icon" width="92" height="92" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path data-morph-stroke="0" pathLength="1" fill="currentColor" fill-opacity="0.09" d="M13 24 A7 7 0 0 1 20 17 L44 17 A7 7 0 0 1 51 24 L51 44 A7 7 0 0 1 44 51 L20 51 A7 7 0 0 1 13 44 Z" />
+                  <path data-morph-stroke="1" pathLength="1" d="M25 14 A3 3 0 0 1 28 11 L36 11 A3 3 0 0 1 39 14 L39 17 L25 17 Z" />
+                  <path data-morph-stroke="2" pathLength="1" d="M32 24 L32 39" />
+                  <path data-morph-stroke="3" pathLength="1" d="M25.5 33.5 L32 40 L38.5 33.5" />
+                  <path data-morph-stroke="4" pathLength="1" d="M23 45 L41 45" />
                 </svg>
                 <svg class="small-spark" width="32" height="32" viewBox="0 0 48 48" fill="none" aria-hidden="true">
                   <path d="M24 4v40M4 24h40M10 10l28 28M38 10L10 38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
@@ -647,9 +716,12 @@
                     d="M 188.00 100.00 C 188.00 109.31 175.27 121.10 167.44 127.94 C 159.61 134.77 147.60 134.43 141.01 141.01 C 134.43 147.60 134.77 159.61 127.94 167.44 C 121.10 175.27 109.31 188.00 100.00 188.00 C 90.69 188.00 78.90 175.27 72.06 167.44 C 65.23 159.61 65.57 147.60 58.99 141.01 C 52.40 134.43 40.39 134.77 32.56 127.94 C 24.73 121.10 12.00 109.31 12.00 100.00 C 12.00 90.69 24.73 78.90 32.56 72.06 C 40.39 65.23 52.40 65.57 58.99 58.99 C 65.57 52.40 65.23 40.39 72.06 32.56 C 78.90 24.73 90.69 12.00 100.00 12.00 C 109.31 12.00 121.10 24.73 127.94 32.56 C 134.77 40.39 134.43 52.40 141.01 58.99 C 147.60 65.57 159.61 65.23 167.44 72.06 C 175.27 78.90 188.00 90.69 188.00 100.00 Z"
                   />
                 </svg>
-                <svg class="illustration-icon" width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path pathLength="1" d="M12 7v14" />
-                  <path pathLength="1" d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
+                <svg class="illustration-icon" width="92" height="92" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path data-morph-stroke="0" pathLength="1" fill="currentColor" fill-opacity="0.09" d="M16 11 L42 11 L42 52 L29 43 L16 52 Z" />
+                  <path data-morph-stroke="1" pathLength="1" d="M29 19.5 A9.5 9.5 0 1 1 19.8 31.5" />
+                  <path data-morph-stroke="2" pathLength="1" d="M26.5 24.5 L34.5 29 L26.5 33.5 Z" />
+                  <path data-morph-stroke="3" pathLength="1" d="M48 16 L52 12" />
+                  <path data-morph-stroke="4" pathLength="1" d="M49 26 L54 26" />
                 </svg>
                 <svg class="small-spark" width="32" height="32" viewBox="0 0 48 48" fill="none" aria-hidden="true">
                   <path d="M24 4v40M4 24h40M10 10l28 28M38 10L10 38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
@@ -888,14 +960,22 @@
     <footer class="site-footer wrap">
       <div class="footer-top">
         <a href="#top" class="brand" aria-label="NoVaY — Retour en haut">
-          <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-            <rect class="brand-mark-bg" x="0.5" y="0.5" width="31" height="31" rx="7.5" stroke-width="1" />
-            <circle cx="16" cy="16" r="8.5" stroke="#edce56" stroke-width="2" />
-            <path d="M13.5 11.8L20.7 16L13.5 20.2V11.8Z" fill="#edce56" />
+          <svg class="brand-mark" viewBox="0 0 256 256" fill="none" aria-hidden="true">
+            <path class="brand-mark-tile" d="M 72 20 H 184 A 52 52 0 0 1 236 72 V 184 A 52 52 0 0 1 184 236 H 72 A 52 52 0 0 1 20 184 V 72 A 52 52 0 0 1 72 20 Z" />
+            <path class="brand-mark-n" d="M 66 64 H 92 V 176 L 66 191 Z M 104 64 H 126 L 154 128 V 192 H 132 L 104 128 Z M 164 79 L 190 64 V 192 H 164 Z" />
           </svg>
           <span>NoVaY<span class="brand-dot">.</span></span>
         </a>
-        <p class="footer-tagline">Des histoires à emporter.</p>
+        <p class="footer-tagline">
+          <svg class="footer-hanko" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
+            <path d="M 155.95 23.68 A 108 108 0 0 1 221.53 182 L 212.87 177 A 98 98 0 0 0 153.36 33.34 Z" />
+            <path d="M 100.05 232.32 A 108 108 0 0 1 34.47 74 L 43.13 79 A 98 98 0 0 0 102.64 222.66 Z" />
+            <path d="M 64 64 H 88 V 178 L 64 192 Z" />
+            <path d="M 168 78 L 192 64 V 192 H 168 Z" />
+            <path d="M 98 64 H 120 L 158 148 V 192 H 136 L 98 108 Z" />
+          </svg>
+          <span>Des histoires à emporter.</span>
+        </p>
         <a class="footer-github" href="https://github.com/JCVERSA/p" target="_blank" rel="noreferrer">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
@@ -915,6 +995,13 @@
         <span>Utilise les contenus dans le respect des droits de leurs créateurs.</span>
       </div>
     </footer>
+
+    <div
+      class="novay-mascot-stage"
+      id="novay-mascot-stage"
+      data-testid="novay-mascot"
+      aria-live="off"
+    ></div>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
